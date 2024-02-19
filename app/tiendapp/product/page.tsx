@@ -36,9 +36,9 @@ export default function ProductsPage({}) {
     window.location.href = "product/create";
   };
 
-  const handleEditClick = (product) => {
+  const handleDetailsClick = (product) => {
     localStorage.setItem("editProduct", JSON.stringify(product));
-    window.location.href = "product/edit";
+    window.location.href = "product/show";
   };
 
   const handleDeleteClick = async (id) => {
@@ -62,6 +62,10 @@ export default function ProductsPage({}) {
     }
   };
 
+  const handleReturnToBrand = () => {
+    window.location.href = "/tiendapp/brand";
+  };
+
   useEffect(() => {
     getProducts();
   }, []);
@@ -75,14 +79,19 @@ export default function ProductsPage({}) {
       >
         Create Product
       </a>
+      <a
+        style={{ marginBottom: "1rem" }}
+        className="btn btn-create create_products"
+        onClick={handleReturnToBrand}
+      >
+        Return to brands
+      </a>
       <table style={{ marginTop: "1rem" }}>
         <thead>
           <tr>
             <th>Product Name</th>
             <th>Size</th>
             <th>Inventory Quantity</th>
-            <th>Shipment Date</th>
-            <th>Observations</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -92,14 +101,12 @@ export default function ProductsPage({}) {
               <td>{product.product_name}</td>
               <td>{product.size}</td>
               <td>{product.inventory_quantity}</td>
-              <td>{product.shipment_date}</td>
-              <td>{product.observations}</td>
               <td>
                 <button
                   style={{ marginRight: "1rem" }}
-                  onClick={() => handleEditClick(product)}
+                  onClick={() => handleDetailsClick(product)}
                 >
-                  Edit
+                  Details
                 </button>
                 <button
                   className="btn btn-delete"

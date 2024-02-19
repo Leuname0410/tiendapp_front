@@ -11,6 +11,8 @@ export default function EditProductPage() {
     observations: "",
   });
 
+  const [isEditing, setIsEditing] = useState(false);
+
   useEffect(() => {
     const editProduct = JSON.parse(localStorage.getItem("editProduct"));
     setProduct(editProduct);
@@ -45,10 +47,34 @@ export default function EditProductPage() {
     }
   };
 
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleReturnToProduct = () => {
+    window.location.href = "/tiendapp/product";
+  };
+
   return (
     <div style={{ margin: "1rem" }}>
-      <h1>Edit Product</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 style={{ marginBottom: "1rem" }}>Product details</h1>
+      <a
+        style={{ marginBottom: "1rem" }}
+        className="btn btn-create create_products"
+        onClick={handleReturnToProduct}
+      >
+        Return to brand
+      </a>
+      {!isEditing && (
+        <a
+          style={{ marginTop: "1rem" }}
+          className="btn btn-edit"
+          onClick={handleEdit}
+        >
+          Edit
+        </a>
+      )}
+      <form style={{ marginTop: "1rem" }} onSubmit={handleSubmit}>
         <div>
           <label>Product Name:</label>
           <input
@@ -58,6 +84,7 @@ export default function EditProductPage() {
             onChange={handleChange}
             maxLength={30}
             required
+            disabled={!isEditing}
           />
         </div>
         <div>
@@ -66,6 +93,7 @@ export default function EditProductPage() {
             value={product.size}
             onChange={handleChange}
             required
+            disabled={!isEditing}
           >
             <option value="S">S</option>
             <option value="M">M</option>
@@ -80,6 +108,7 @@ export default function EditProductPage() {
             value={product.inventory_quantity}
             onChange={handleChange}
             required
+            disabled={!isEditing}
           />
         </div>
         <div>
@@ -90,6 +119,7 @@ export default function EditProductPage() {
             value={product.shipment_date}
             onChange={handleChange}
             required
+            disabled={!isEditing}
           />
         </div>
         <div>
@@ -99,9 +129,10 @@ export default function EditProductPage() {
             value={product.observations}
             onChange={handleChange}
             required
+            disabled={!isEditing}
           />
         </div>
-        <button type="submit">Save Changes</button>
+        {isEditing && <button type="submit">Save Changes</button>}
       </form>
     </div>
   );
