@@ -5,7 +5,6 @@ export default function EditBrand() {
   const [brand, setBrand] = useState({ name: "" });
 
   useEffect(() => {
-    // Obtener los datos del brand del almacenamiento local del navegador al cargar la página
     const editBrand = JSON.parse(localStorage.getItem("editBrand"));
     setBrand(editBrand);
   }, []);
@@ -55,9 +54,9 @@ export default function EditBrand() {
             value={brand.name}
             onChange={handleChange}
             className="form-control"
+            maxLength={50}
             required
           />
-          <input hidden name="id" id="brandId" />
         </div>
         <button type="submit" className="btn btn-primary">
           Update Brand

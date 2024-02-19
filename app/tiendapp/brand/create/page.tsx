@@ -38,6 +38,7 @@ export default function CreateBrand() {
             value={name}
             onChange={(event) => setName(event.target.value)}
             className="form-control"
+            maxLength={50}
             required
           />
         </div>

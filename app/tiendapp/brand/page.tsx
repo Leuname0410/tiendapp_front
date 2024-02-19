@@ -38,6 +38,10 @@ export default function BrandsPage({}) {
     }
   };
 
+  const handleProductClick = (brand) => {
+    localStorage.setItem("brandProducts", JSON.stringify(brand));
+    window.location.href = "/tiendapp/product";
+  };
   useEffect(() => {
     getBrands();
   }, []);
@@ -62,11 +66,16 @@ export default function BrandsPage({}) {
               <td>
                 <a
                   className="btn btn-create create_products"
-                  href={`/products/${brand.id}`}
+                  onClick={() => handleProductClick(brand)}
                 >
                   Products
                 </a>
-                <button onClick={() => handleEditClick(brand)}>Editar</button>
+                <button
+                  style={{ marginRight: "1rem" }}
+                  onClick={() => handleEditClick(brand)}
+                >
+                  Edit
+                </button>
                 <button
                   className="btn btn-delete"
                   onClick={() => handleDeleteClick(brand.id)}
